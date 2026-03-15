@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Urgent Question by Jayant!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -10,10 +10,10 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            touch-action: manipulation; /* Mobile zoom issues fix */
         }
 
         body {
-            /* Cool Animated Gradient Background */
             background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -21,8 +21,10 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            width: 100vw;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* Screen se bahar kuch nahi jayega */
+            position: relative;
         }
 
         @keyframes gradientBG {
@@ -31,129 +33,93 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glassmorphism Card */
         .box {
             background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 50px;
+            padding: 30px;
             text-align: center;
-            max-width: 500px;
-            width: 90%;
+            max-width: 400px;
+            width: 85%;
             animation: float 6s ease-in-out infinite;
             z-index: 10;
-            transition: background 0.5s ease;
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
-        h1 { 
-            color: #ff4757; 
-            font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #2f3542;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
+        h1 { color: #ff4757; font-size: 1.5rem; margin-bottom: 10px; }
+        p { color: #2f3542; font-weight: 600; font-size: 0.9rem; }
 
         .btn-container {
-            margin-top: 40px;
+            margin-top: 30px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-direction: column; /* Changed to column for better stacking at the end */
-            gap: 20px;
-            min-height: 60px;
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         button {
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             font-weight: bold;
-            font-family: 'Poppins', sans-serif;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         #yesBtn {
             background-color: #ff4757;
             color: white;
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
-            background-color: #ff6b81;
-            box-shadow: 0 0 30px rgba(255, 71, 87, 0.8);
+            z-index: 11;
         }
 
         #noBtn {
             background-color: #2f3542;
             color: white;
             position: fixed; 
-            transition: left 0.2s ease-out, top 0.2s ease-out, background-color 0.5s, transform 0.5s;
+            /* Smooth movement on mobile */
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 999;
+            white-space: nowrap;
         }
 
-        /* The Surrendered State of No Button */
         #noBtn.defeated {
-            position: relative; /* Wapas box ke andar lane ke liye */
-            left: auto !important;
-            top: auto !important;
-            background-color: #bdc3c7; /* Dull grey */
+            position: static;
+            background-color: #bdc3c7;
             color: #7f8c8d;
             box-shadow: none;
             cursor: not-allowed;
-            transform: scale(0.9);
-            pointer-events: none; /* Click disable karne ke liye */
+            pointer-events: none;
+            margin-top: 10px;
         }
 
         #message {
             display: none;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #fff;
-            margin-top: 20px;
             font-weight: 800;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
             line-height: 1.5;
         }
 
-        .highlight {
-            color: #ffeaa7;
-            font-size: 2.2rem;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
+        .highlight { color: #ffeaa7; font-size: 1.8rem; }
 
-        /* Falling Emoji Animation */
         .falling-item {
             position: fixed;
-            font-size: 30px;
+            font-size: 25px;
             animation: fall linear forwards;
             z-index: 5;
-            pointer-events: none;
         }
 
         @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
     </style>
@@ -164,52 +130,53 @@
         <h1 id="question">Kya tum aaj mere saath Momos khane chalogi? 🥟</h1>
         <p id="subtext">Jayant Malik ka offer hai, reject karna impossible hai!</p>
 
-        <div class="btn-container">
-            <div class="action-btns" id="actionBtns">
-                <button id="yesBtn" onclick="accepted()">Haan, Chalo! ❤️</button>
-            </div>
-            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Bilkul Nahi</button>
+        <div class="btn-container" id="btnWrapper">
+            <button id="yesBtn" onclick="accepted()">Haan, Chalo! ❤️</button>
+            <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">Bilkul Nahi</button>
         </div>
 
         <div id="message">
             <span class="highlight">That's my girl! ❤️</span><br>
-            Mujhe pata tha Jayant Malik ko 'Na' bolna impossible hai. Jaldi taiyar ho jao! 🚗✨
+            Jayant Malik ko 'Na' bolna impossible hai. Jaldi taiyar ho jao! 🚗✨
         </div>
     </div>
 
     <script>
-        // Check if the button is defeated so it doesn't move
         let isDefeated = false;
 
         function moveButton() {
             if (isDefeated) return;
 
             const btn = document.getElementById('noBtn');
-            const maxX = window.innerWidth - btn.offsetWidth - 20;
-            const maxY = window.innerHeight - btn.offsetHeight - 20;
             
-            const randomX = Math.max(20, Math.random() * maxX);
-            const randomY = Math.max(20, Math.random() * maxY);
+            // Mobile viewport size calculation
+            const padding = 20;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
             
+            // Button dimensions
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+
+            // Generate random position within safe boundaries
+            let randomX = Math.floor(Math.random() * (screenWidth - btnWidth - (padding * 2))) + padding;
+            let randomY = Math.floor(Math.random() * (screenHeight - btnHeight - (padding * 2))) + padding;
+
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
         }
 
         function accepted() {
-            isDefeated = true; // Stop the movement logic
-
-            // Hide the original question and Yes button
+            isDefeated = true;
+            
             document.getElementById('question').style.display = 'none';
             document.getElementById('subtext').style.display = 'none';
-            document.getElementById('actionBtns').style.display = 'none';
+            document.getElementById('yesBtn').style.display = 'none';
             
-            // Defeat the NO button
             const noBtn = document.getElementById('noBtn');
             noBtn.classList.add('defeated');
             noBtn.innerText = "Okay fine, Jayant jeet gaya! 🏳️";
-            noBtn.onmouseover = null; // Remove hover effect completely
             
-            // Show the swagger message
             document.getElementById('message').style.display = 'block';
             document.getElementById('mainBox').style.background = 'rgba(255, 71, 87, 0.85)';
             
@@ -217,22 +184,19 @@
         }
 
         function celebrate() {
-            const emojis = ['🥟', '❤️', '✨', '🍕'];
-            for (let i = 0; i < 50; i++) {
+            const emojis = ['🥟', '❤️', '✨'];
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const item = document.createElement('div');
                     item.className = 'falling-item';
                     item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
                     item.style.left = Math.random() * 100 + 'vw';
-                    item.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    item.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    item.style.animationDuration = (Math.random() * 2 + 2) + 's';
                     document.body.appendChild(item);
-                    
-                    setTimeout(() => item.remove(), 5000);
+                    setTimeout(() => item.remove(), 4000);
                 }, i * 100);
             }
         }
     </script>
-
 </body>
 </html>
