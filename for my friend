@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urgent Question by Jayant!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Cool Animated Gradient Background */
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card */
+        .box {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 10;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 { 
+            color: #ff4757; 
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #2f3542;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .btn-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Changed to column for better stacking at the end */
+            gap: 20px;
+            min-height: 60px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #yesBtn {
+            background-color: #ff4757;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #ff6b81;
+            box-shadow: 0 0 30px rgba(255, 71, 87, 0.8);
+        }
+
+        #noBtn {
+            background-color: #2f3542;
+            color: white;
+            position: fixed; 
+            transition: left 0.2s ease-out, top 0.2s ease-out, background-color 0.5s, transform 0.5s;
+        }
+
+        /* The Surrendered State of No Button */
+        #noBtn.defeated {
+            position: relative; /* Wapas box ke andar lane ke liye */
+            left: auto !important;
+            top: auto !important;
+            background-color: #bdc3c7; /* Dull grey */
+            color: #7f8c8d;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: scale(0.9);
+            pointer-events: none; /* Click disable karne ke liye */
+        }
+
+        #message {
+            display: none;
+            font-size: 1.4rem;
+            color: #fff;
+            margin-top: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #ffeaa7;
+            font-size: 2.2rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Falling Emoji Animation */
+        .falling-item {
+            position: fixed;
+            font-size: 30px;
+            animation: fall linear forwards;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box" id="mainBox">
+        <h1 id="question">Kya tum aaj mere saath Momos khane chalogi? 🥟</h1>
+        <p id="subtext">Jayant Malik ka offer hai, reject karna impossible hai!</p>
+
+        <div class="btn-container">
+            <div class="action-btns" id="actionBtns">
+                <button id="yesBtn" onclick="accepted()">Haan, Chalo! ❤️</button>
+            </div>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Bilkul Nahi</button>
+        </div>
+
+        <div id="message">
+            <span class="highlight">That's my girl! ❤️</span><br>
+            Mujhe pata tha Jayant Malik ko 'Na' bolna impossible hai. Jaldi taiyar ho jao! 🚗✨
+        </div>
+    </div>
+
+    <script>
+        // Check if the button is defeated so it doesn't move
+        let isDefeated = false;
+
+        function moveButton() {
+            if (isDefeated) return;
+
+            const btn = document.getElementById('noBtn');
+            const maxX = window.innerWidth - btn.offsetWidth - 20;
+            const maxY = window.innerHeight - btn.offsetHeight - 20;
+            
+            const randomX = Math.max(20, Math.random() * maxX);
+            const randomY = Math.max(20, Math.random() * maxY);
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        function accepted() {
+            isDefeated = true; // Stop the movement logic
+
+            // Hide the original question and Yes button
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('subtext').style.display = 'none';
+            document.getElementById('actionBtns').style.display = 'none';
+            
+            // Defeat the NO button
+            const noBtn = document.getElementById('noBtn');
+            noBtn.classList.add('defeated');
+            noBtn.innerText = "Okay fine, Jayant jeet gaya! 🏳️";
+            noBtn.onmouseover = null; // Remove hover effect completely
+            
+            // Show the swagger message
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('mainBox').style.background = 'rgba(255, 71, 87, 0.85)';
+            
+            celebrate();
+        }
+
+        function celebrate() {
+            const emojis = ['🥟', '❤️', '✨', '🍕'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const item = document.createElement('div');
+                    item.className = 'falling-item';
+                    item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    item.style.left = Math.random() * 100 + 'vw';
+                    item.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    item.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    document.body.appendChild(item);
+                    
+                    setTimeout(() => item.remove(), 5000);
+                }, i * 100);
+            }
+        }
+    </script>
+
+</body>
+</html>
