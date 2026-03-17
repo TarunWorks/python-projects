@@ -2,201 +2,284 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Urgent Question by Jayant!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarun Tomar | Tech</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            touch-action: manipulation; /* Mobile zoom issues fix */
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b; 
+            color: #ffffff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            width: 100vw;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Screen se bahar kuch nahi jayega */
+            overflow: hidden;
             position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .box {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-            animation: float 6s ease-in-out infinite;
-            z-index: 10;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        h1 { color: #ff4757; font-size: 1.5rem; margin-bottom: 10px; }
-        p { color: #2f3542; font-weight: 600; font-size: 0.9rem; }
-
-        .btn-container {
-            margin-top: 30px;
+        /* Top Navigation Bar */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem 4rem;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 20;
         }
 
-        button {
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .logo span {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #a1a1aa; 
+            letter-spacing: 0;
+            text-transform: lowercase;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: #e4e4e7;
+            border: 1px solid rgba(255, 255, 255, 0.25); 
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Center Content */
+        .main-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 {
+            font-size: 4rem; /* Slightly reduced to fit the new text perfectly */
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 .dim {
+            color: #cbd5e1; 
+        }
+
+        .subtitle {
+            font-size: 1.25rem; 
+            color: #a1a1aa; 
+            font-weight: 400;
+            margin-bottom: 3.5rem;
+            letter-spacing: 0.3px;
+            line-height: 1.6; /* Added line height for the two lines of text */
+        }
+
+        /* Minimalist Pill Button */
+        .poke-btn {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.35); 
+            padding: 14px 32px;
+            font-size: 1.05rem; 
+            font-weight: 400;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: inherit;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        #yesBtn {
-            background-color: #ff4757;
-            color: white;
-            z-index: 11;
+        .poke-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: scale(1.02);
         }
 
-        #noBtn {
-            background-color: #2f3542;
-            color: white;
-            position: fixed; 
-            /* Smooth movement on mobile */
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 999;
-            white-space: nowrap;
+        .poke-btn:active {
+            transform: scale(0.98);
         }
 
-        #noBtn.defeated {
-            position: static;
-            background-color: #bdc3c7;
-            color: #7f8c8d;
-            box-shadow: none;
-            cursor: not-allowed;
+        /* Funny Message Area */
+        #funny-message {
+            margin-top: 2rem;
+            height: 20px;
+            font-size: 1.1rem; 
+            color: #d4d4d8; 
+            font-weight: 400;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Crosshair Aesthetic */
+        .crosshairs {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            margin-top: 10px;
+            z-index: 1;
         }
 
-        #message {
-            display: none;
-            font-size: 1.2rem;
-            color: #fff;
-            font-weight: 800;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            line-height: 1.5;
+        .line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15); 
         }
 
-        .highlight { color: #ffeaa7; font-size: 1.8rem; }
+        .line-h-left { top: 40%; left: 10%; width: 15%; height: 1px; }
+        .line-h-right { top: 40%; right: 10%; width: 15%; height: 1px; }
+        .line-v-top { top: 15%; left: 30%; width: 1px; height: 15%; }
+        .line-v-top-right { top: 15%; right: 30%; width: 1px; height: 15%; }
 
-        .falling-item {
-            position: fixed;
-            font-size: 25px;
-            animation: fall linear forwards;
+        .plus { position: absolute; color: rgba(255, 255, 255, 0.4); font-size: 12px; }
+        .plus-1 { top: calc(40% - 7px); left: 25%; }
+        .plus-2 { top: calc(40% - 7px); right: 25%; }
+
+        /* Bottom Curved Horizon Glow */
+        .horizon {
+            position: absolute;
+            bottom: -60vh;
+            left: -50vw;
+            width: 200vw;
+            height: 100vh;
+            border-radius: 50%;
+            background: radial-gradient(circle at top, #18181b 0%, #09090b 70%); 
+            box-shadow: 0 -1px 40px rgba(255, 255, 255, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.15);
             z-index: 5;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            nav { padding: 1.5rem 2rem; }
+            .line { display: none; }
+            .plus { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="box" id="mainBox">
-        <h1 id="question">Kya tum aaj mere saath Momos khane chalogi? 🥟</h1>
-        <p id="subtext">Jayant Malik ka offer hai, reject karna impossible hai!</p>
+    <nav>
+        <div class="logo"><span>Developed by</span><br>Tarun Tomar</div>
+        <a href="https://taruntomar.me" class="nav-btn">Visit TarunTomar.me</a>
+    </nav>
 
-        <div class="btn-container" id="btnWrapper">
-            <button id="yesBtn" onclick="accepted()">Haan, Chalo! ❤️</button>
-            <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">Bilkul Nahi</button>
-        </div>
-
-        <div id="message">
-            <span class="highlight">That's my girl! ❤️</span><br>
-            Jayant Malik ko 'Na' bolna impossible hai. Jaldi taiyar ho jao! 🚗✨
-        </div>
+    <div class="crosshairs">
+        <div class="line line-h-left"></div>
+        <div class="plus plus-1">+</div>
+        <div class="line line-h-right"></div>
+        <div class="plus plus-2">+</div>
+        <div class="line line-v-top"></div>
+        <div class="line line-v-top-right"></div>
     </div>
 
+    <div class="main-content">
+        <h1>Site under<br><span class="dim">construction...</span></h1>
+        
+        <p class="subtitle">
+            Developer is still learning 😅<br>
+            Good things take time 🚀
+        </p>
+
+        <button class="poke-btn" id="pokeBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Poke the Developer
+        </button>
+
+        <p id="funny-message"></p>
+    </div>
+
+    <div class="horizon"></div>
+
     <script>
-        let isDefeated = false;
+        const messages = [
+            "Bhai, aise click karne se website jaldi nahi banegi! 😅",
+            "Ouch! Code break ho jayega bhai, mat kar. 🐛",
+            "Accha theek hai, VS Code khol raha hu... 💻",
+            "Error 404: Motivation not found. ☕",
+            "Ek kaam kar, jab tak upar se meri .me check kar le! 🏃‍♂️",
+            "Patience naam ki cheez suni hai? 🧘‍♂️",
+            "Server pe load mat daal bhai. 🛑",
+            "Lagta hai tera mouse naya hai. 🖱️",
+            "Refresh karke dekh le, kuch nahi badlega. 🔄",
+            "Main backend theek kar raha hu, tu frontend mat tod! 🛠️",
+            "Bas kar bhai, keyboard toot jayega! 😭",
+            "Ab main kuch nahi bolunga. 🤐",
+            "...",
+            "Sach mein? Abhi bhi click kar raha hai? 🤖",
+            "Tujhe aur koi kaam nahi hai kya? 🥱",
+            "Mera coffee break chal raha hai. ☕",
+            "Deploy karne de bhai, dhyan bhatak raha hai. 🚀",
+            "Ek click aur kiya na toh... kuch nahi karunga, par bura lagega. 🥺",
+            "Bug dhoondh raha tha, tu hi mil gaya. 🐞",
+            "Is button se meri salary nahi badhne wali. 💸",
+            "StackOverflow pe iska solution nahi hai. 🤷‍♂️",
+            "Ctrl+Z daba de meri zindagi mein. ⏪",
+            "Tu CSS jaisa hai, samajh hi nahi aa raha. 🎨",
+            "Lagta hai tera loop Infinite ho gaya hai. ♾️",
+            "Battery bacha le phone ki, jaake reels dekh le. 📱",
+            "Aise poke karega toh main production mein bug daal dunga! 💣",
+            "Main chala ChatGPT se code likhwane. 🤖",
+            "Maa kasam, agla click kiya toh screen blue ho jayegi. 🪟",
+            "Achha bata, kitne clicks ka target hai tera? 🎯",
+            "Meri maa ne sikhaya tha, aise anjaan buttons pe click nahi karte. 🙅‍♂️",
+            "System overloaded. Bhaag yaha se! 🚨",
+            "Tu nahi maanega na? 🤦‍♂️",
+            "Yeh button ab thak chuka hai. It needs rest. 🛌",
+            "RIP Mouse Left Click (202X - 2026). 🪦",
+            "You broke the button. Happy now? 💥",
+            "Ab iske aage mere paas koi dialogue nahi hai. 🎬",
+            "Seriously, I'm out of jokes. 🪫",
+            "Okay, you win. I lose. 🏆",
+            "Bye. 👋",
+            "..."
+        ];
 
-        function moveButton() {
-            if (isDefeated) return;
+        let clickCount = 0;
+        const btn = document.getElementById('pokeBtn');
+        const msgDisplay = document.getElementById('funny-message');
 
-            const btn = document.getElementById('noBtn');
+        btn.addEventListener('click', () => {
+            msgDisplay.style.opacity = 0;
             
-            // Mobile viewport size calculation
-            const padding = 20;
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-            
-            // Button dimensions
-            const btnWidth = btn.offsetWidth;
-            const btnHeight = btn.offsetHeight;
-
-            // Generate random position within safe boundaries
-            let randomX = Math.floor(Math.random() * (screenWidth - btnWidth - (padding * 2))) + padding;
-            let randomY = Math.floor(Math.random() * (screenHeight - btnHeight - (padding * 2))) + padding;
-
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
-        }
-
-        function accepted() {
-            isDefeated = true;
-            
-            document.getElementById('question').style.display = 'none';
-            document.getElementById('subtext').style.display = 'none';
-            document.getElementById('yesBtn').style.display = 'none';
-            
-            const noBtn = document.getElementById('noBtn');
-            noBtn.classList.add('defeated');
-            noBtn.innerText = "Okay fine, Jayant jeet gaya! 🏳️";
-            
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('mainBox').style.background = 'rgba(255, 71, 87, 0.85)';
-            
-            celebrate();
-        }
-
-        function celebrate() {
-            const emojis = ['🥟', '❤️', '✨'];
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const item = document.createElement('div');
-                    item.className = 'falling-item';
-                    item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                    item.style.left = Math.random() * 100 + 'vw';
-                    item.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    document.body.appendChild(item);
-                    setTimeout(() => item.remove(), 4000);
-                }, i * 100);
-            }
-        }
+            setTimeout(() => {
+                if (clickCount < messages.length) {
+                    msgDisplay.innerText = messages[clickCount];
+                } else {
+                    msgDisplay.innerText = `You have clicked ${clickCount + 1} times. Go touch some grass 🌱`;
+                }
+                msgDisplay.style.opacity = 1;
+                clickCount++;
+            }, 150);
+        });
     </script>
+
 </body>
 </html>
